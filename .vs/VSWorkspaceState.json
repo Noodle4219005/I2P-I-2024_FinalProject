@@ -1,0 +1,18 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "out\\build\\x64-Debug",
+      "out\\install\\x64-Debug"
+    ]
+  },
+  "ExpandedNodes": [
+    "",
+    "\\Final_Codes",
+    "\\Final_Codes\\Assets",
+    "\\Final_Codes\\include",
+    "\\Final_Codes\\src",
+    "\\out"
+  ],
+  "SelectedNode": "\\Final_Codes\\Assets\\map0.txt",
+  "PreviewInSolutionExplorer": false
+}
