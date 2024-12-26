@@ -1,8 +1,8 @@
-# Install script for directory: E:/06_Code/Private-Code/I2P-I-2024_FinalProject
+# Install script for directory: E:/06_Code/Public-Code/I2P-I-2024_FinalProject
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "E:/06_Code/Private-Code/I2P-I-2024_FinalProject/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "E:/06_Code/Public-Code/I2P-I-2024_FinalProject/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "E:/06_Code/Private-Code/I2P-I-2024_FinalProject/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "E:/06_Code/Public-Code/I2P-I-2024_FinalProject/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

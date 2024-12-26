@@ -16,6 +16,8 @@ const char* GAME_TITLE = "NTHU-RPG Adventure";
 const char* log_file = "log.txt";
 const char* font_file = "Assets/Minecraft.ttf";
 const int TILE_SIZE = 64;
+const int WINNING_COINS=5;
+const int INF=0x3f3f3f3f;
 
 ALLEGRO_SAMPLE* BGM = NULL;
 float SFX_VOLUME = 0.5f;

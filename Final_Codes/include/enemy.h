@@ -23,6 +23,7 @@ typedef struct _enemy{
     
     enemyType type;
     Point coord;
+	int last_chasing_distance;
     int speed;
     int health;
     
@@ -57,9 +58,10 @@ typedef struct _enemyNode {
     struct _enemyNode * next;
 } enemyNode;
 
+int distacne(Point a, Point b);
 enemyNode * createEnemyList(void);
 void insertEnemyList(enemyNode * dummyhead, Enemy _enemy);
-void updateEnemyList(enemyNode * dummyhead, Map * map, Player * player);
+void updateEnemyList(enemyNode * dummyhead, Map * map, Player * player, Player* player2);
 void drawEnemyList(enemyNode * dummyhead, Point cam);
 void destroyEnemyList(enemyNode * dummyhead);
 

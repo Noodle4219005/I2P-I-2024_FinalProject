@@ -34,6 +34,8 @@ extern const int SCREEN_H; // Screen Height
 extern const int RESERVE_SAMPLES; // Maximum Audio played at a time
 extern const char* GAME_TITLE; // Window title name
 extern const int TILE_SIZE; // TILE SIZE Displayed in the game
+extern const int WINNING_COINS; // The coins player need to get for winning
+extern const int INF;
 
 extern float SFX_VOLUME; // Sound Effects Volume
 extern float BGM_VOLUME; // Background Music Volume

@@ -12,12 +12,14 @@
 #include <math.h>
 
 Player player; // Player
+Player player2; // for multi
 Map map; // Map
 enemyNode * enemyList; // Enemy List
 BulletNode * bulletList; // Bullet List
 
 // Weapon
-Weapon weapon; 
+Weapon weapon_list[2];
+Weapon weapon;
 int coins_obtained;
 
 static void init(void){
@@ -26,14 +28,17 @@ static void init(void){
     
     map = create_map("Assets/map0.txt", 0);
 
-    player = create_player("Assets/panda2.png", map.Spawn.x, map.Spawn.y);
+    player = create_player("Assets/panda2.png", map.Spawn.x, map.Spawn.y, 1); 
+	player2=create_player("Assets/player.png", map.Spawn.x, map.Spawn.y, 2);
 
     enemyList = createEnemyList();
     bulletList = createBulletList();
 
 	coins_obtained=0;
 
-    weapon = create_weapon("Assets/guns.png", "Assets/yellow_bullet.png", 16, 8, 10);
+    weapon_list[0]=create_weapon("Assets/guns.png", "Assets/yellow_bullet.png", 16, 8, 10, RIFLE);
+    weapon_list[1]=create_weapon("Assets/sniper.png", "Assets/orange_bullet.png", 72, 20, 50, SHOOTER);
+	weapon=weapon_list[1];
     
     for(int i=0; i<map.EnemySpawnSize; i++){
         Enemy enemy = createEnemy(map.EnemySpawn[i].x, map.EnemySpawn[i].y, map.EnemyCode[i]);
@@ -45,23 +50,25 @@ static void init(void){
 }
 
 static void update(void){
-    /*
-        [TODO Homework]
-        
-        Change the scene if winning/losing to win/lose scene
-    */
-
+	static int previous_wheel_state=0;
     Point Camera;
 
 	Camera.x=player.coord.x-SCREEN_W/2;
 	Camera.y=player.coord.y-SCREEN_H/2;
 
     update_player(&player, &map);
-    updateEnemyList(enemyList, &map, &player);
+	update_player(&player2, &map);
+    updateEnemyList(enemyList, &map, &player, &player2);
     update_weapon(&weapon, bulletList, player.coord, Camera);
     updateBulletList(bulletList, enemyList, &map);
-    update_map(&map, player.coord, &coins_obtained);
+    update_map(&map, player.coord, player.id, &coins_obtained);
+    update_map(&map, player2.coord, player2.id, &coins_obtained);
 
+	if (previous_wheel_state!=mouseState.z) {
+		weapon=weapon_list[(mouseState.z+INF)%INF%2];
+	}
+
+	previous_wheel_state=mouseState.z;
 }
 
 static void draw(void){
@@ -70,12 +77,13 @@ static void draw(void){
 	Camera.x=player.coord.x-SCREEN_W/2;
 	Camera.y=player.coord.y-SCREEN_H/2;
 
+	// losing and winning scene
 	if (player.status==PLAYER_DEAD) {
 		al_draw_scaled_bitmap(al_load_bitmap("Assets/panda_lose.png"), 0, 0, 64, 64, SCREEN_W/2-128, SCREEN_H/2-128, 256, 256, false);
 		return;
 	}
 
-	if (coins_obtained>=3) {
+	if (coins_obtained>=WINNING_COINS) {
 		al_draw_scaled_bitmap(al_load_bitmap("Assets/panda_win.png"), 0, 0, 64, 64, SCREEN_W/2-128, SCREEN_H/2-128, 256, 256, false);
 		return;
 	}
@@ -85,8 +93,10 @@ static void draw(void){
     drawEnemyList(enemyList, Camera);
     drawBulletList(bulletList, Camera);
     draw_player(&player, Camera);
+	draw_player(&player2, Camera);
     draw_weapon(&weapon, player.coord, Camera);
 
+	// the coin and heart
 	al_draw_scaled_bitmap(al_load_bitmap("Assets/heart.png"), 0, 0, 32, 32, 0, 0, 64, 64, false);
 	al_draw_scaled_bitmap(al_load_bitmap("Assets/coin_icon.png"), 0, 0, 16, 16, 0, 64, 64, 64, false);
 
@@ -110,6 +120,7 @@ static void draw(void){
 
 static void destroy(void){
     delete_player(&player);
+	delete_player(&player2);
     delete_weapon(&weapon);
     destroy_map(&map);
     destroyBulletList(bulletList);

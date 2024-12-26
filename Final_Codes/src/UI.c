@@ -32,6 +32,37 @@ Button button_create(int x, int y, int w, int h, const char* default_image_path,
 	return button;
 }
 
+Slider slider_create(int x, int y, int w, int h, float note_proportion, int note_size, const char* bar_iamge_path, const char* note_image_path) {
+
+	Slider slider;
+	memset(&slider, 0, sizeof(Slider));
+
+	slider.bar_img=al_load_bitmap(bar_iamge_path);
+	slider.note_img=al_load_bitmap(note_image_path);
+
+	if (!slider.bar_img) {
+        game_log("failed loading slider image %s", bar_iamge_path);
+	}
+    if (!slider.note_img) {
+        game_log("failed loading slider image %s", note_image_path);
+    }
+
+	slider.bar_x=x;
+	slider.bar_y=y;
+	slider.bar_w=w;
+	slider.bar_h=h;
+	slider.note_x=x+w*note_proportion;
+	slider.note_y=y;
+	slider.note_size=note_size;
+
+	slider.is_activate=false;
+	slider.hovered = false;
+
+	return slider;
+
+}
+
+
 void draw_button(Button button) {
 	ALLEGRO_BITMAP* _img = button.hovered ? button.hovered_img : button.default_img;
 	al_draw_scaled_bitmap(
@@ -43,21 +74,57 @@ void draw_button(Button button) {
 	);
 }
 
+void draw_slider(Slider slider) {
+	al_draw_scaled_bitmap(
+		slider.bar_img,
+		0, 0,
+		al_get_bitmap_width(slider.bar_img), al_get_bitmap_height(slider.bar_img),
+		slider.bar_x, slider.bar_y,
+		slider.bar_w, slider.bar_h, 0
+	);
+
+	al_draw_scaled_bitmap(
+		slider.note_img,
+		0, 0,
+		al_get_bitmap_width(slider.note_img), al_get_bitmap_height(slider.note_img),
+		slider.note_x-slider.note_size/2, slider.note_y-slider.note_size/2,
+		slider.note_size, slider.note_size, 0
+	);
+
+}
+
 void update_button(Button* button) {
 	Point mouse = { mouseState.x, mouseState.y };
 	RecArea rect = { button->x, button->y, button->w, button->h };
 	button->hovered=mouse_in_rect(mouse, rect);
-	/*
-		[TODO Hackathon 4-2] 
-		
-		Using function you completed before,
-		determine the button if it's hovered or not (button->hovered)
-	*/
+}
+
+void update_slider(Slider* slider) {
+	Point mouse = { mouseState.x, mouseState.y };
+	RecArea rect = { slider->bar_x, slider->bar_y, slider->bar_w, slider->bar_h };
+
+	// whether the mouse is pressed
+	if (mouse_in_rect(mouse, rect)&&(mouseState.buttons&1)) slider->is_activate=true;
+	else if (slider->is_activate&&(mouseState.buttons&1)) slider->is_activate=true;
+	else slider->is_activate=false;
+
+	if (slider->is_activate) {
+		if (mouseState.x>=slider->bar_x&&mouseState.x<=slider->bar_x+slider->bar_w) 
+			slider->note_x=mouseState.x;
+	}
+	SFX_VOLUME=BGM_VOLUME=1.f*(slider->note_x-slider->bar_x)/slider->bar_w;
+	printf("BGM: %f\n", BGM_VOLUME);
 }
 
 void destroy_button(Button* button) {
 	al_destroy_bitmap(button->default_img);
 	al_destroy_bitmap(button->hovered_img);
+}
+
+void destroy_slider(Slider* slider ) {
+	al_destroy_bitmap(slider->bar_img);
+	al_destroy_bitmap(slider->note_img);
+
 }
 
 static bool mouse_in_rect(Point mouse, RecArea rect) {

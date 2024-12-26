@@ -17,6 +17,7 @@ typedef struct _Player{
     int speed; // TODO: CHANGE SPEED SCALED TO THE SIZE OF THE TILES
 	int direction;
     int health;
+	int id;
     
     ALLEGRO_BITMAP* image;
     uint8_t animation_tick; // For animation
@@ -25,12 +26,13 @@ typedef struct _Player{
     uint8_t knockback_CD;
 
     PLAYER_STATUS status;
-
 } Player;
 
-Player create_player(char * path,int row,int col);
+Player create_player(char* path, int row, int col, int id);
 void update_player(Player * player, Map * map);
+void update_player2(Player* player, Map* map);
 void draw_player(Player * player, Point cam);
+void draw_player2(Player* player, Point cam);
 void delete_player(Player * player);
 void hitPlayer(Player * player, Point enemy_coord, int damage);
 

@@ -5,7 +5,7 @@
 
 #include <math.h>
 
-Weapon create_weapon(char * weapon_path, char * bullet_path, int cooldown, int speed, int damage){
+Weapon create_weapon(char * weapon_path, char * bullet_path, int cooldown, int speed, int damage, BULLET_TYPE bullet_type) {
     Weapon weapon;
     weapon.image = al_load_bitmap(weapon_path);
     if(!weapon.image){
@@ -23,11 +23,13 @@ Weapon create_weapon(char * weapon_path, char * bullet_path, int cooldown, int s
     weapon.cooldown_counter = 0;
     weapon.speed = speed;
     weapon.damage = damage;
+	weapon.bullet_type=bullet_type;
     return weapon;
 }
 
 void update_weapon(Weapon * weapon, BulletNode * bulletList, Point playerCoord, Point cam){
     // Calculate Angle
+	static int previous_wheel_state=INT_MAX;
     int cy = playerCoord.y - cam.y + (TILE_SIZE / 2) + 4; // destiny y axis
     int cx = playerCoord.x - cam.x + (TILE_SIZE / 2); // destiny x axis
     float dX = mouseState.x - cx;
@@ -38,7 +40,7 @@ void update_weapon(Weapon * weapon, BulletNode * bulletList, Point playerCoord, 
     if(mouseState.buttons & 1 && weapon->cooldown_counter == 0){
         weapon->cooldown_counter = weapon->cooldown;
         PointFloat center = (PointFloat){playerCoord.x + TILE_SIZE / 2, playerCoord.y + TILE_SIZE / 2};
-        Bullet bullet = create_bullet(weapon->bullet_path, center, weapon->angle, weapon->speed, weapon->damage);
+        Bullet bullet = create_bullet(weapon->bullet_path, center, weapon->angle, weapon->speed, weapon->damage, weapon->bullet_type);
         insertBulletList(bulletList, bullet);
         if (!al_play_sample(weapon->shooting_audio, SFX_VOLUME, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL)) {
             game_log("Audio not playing, please increase your RESERVE_SAMPLES variable");

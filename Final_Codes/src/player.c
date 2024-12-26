@@ -7,7 +7,7 @@
 
 static bool isCollision(Player* player, Map* map);
 
-Player create_player(char * path, int row, int col){
+Player create_player(char * path, int row, int col, int id){
     Player player;
     memset(&player, 0, sizeof(player));
     
@@ -18,6 +18,7 @@ Player create_player(char * path, int row, int col){
     
     player.speed = 4;
     player.health = 1000;
+	player.id=id;
     
     player.image = al_load_bitmap(path);
     if(!player.image){
@@ -28,6 +29,11 @@ Player create_player(char * path, int row, int col){
 }
 
 void update_player(Player * player, Map* map){
+
+	if (player->id==2) {
+		update_player2(player, map);
+		return;
+	}
 
     Point original = player->coord;
     
@@ -95,15 +101,79 @@ void update_player(Player * player, Map* map){
 	}
 
 	player->animation_tick++;
+}
+
+void update_player2 (Player* player, Map* map){ 
+
+    Point original = player->coord;
     
-    /*
-        [TODO Homework] 
+    // Knockback effect
+    if(player->knockback_CD > 0){
+
+        player->knockback_CD--;
+        int next_x = player->coord.x + player->speed * cos(player->knockback_angle);
+        int next_y = player->coord.y + player->speed * sin(player->knockback_angle);
+        Point next;
+        next = (Point){next_x, player->coord.y};
         
-        Calculate the animation tick to draw animation later
-    */
+        if(!isCollision(player, map)){
+            player->coord = next;
+        }
+        
+        next = (Point){player->coord.x, next_y};
+        if(!isCollision(player, map)){
+            player->coord = next;
+        }
+    }
+
+	if (keyState[ALLEGRO_KEY_UP]) {
+		player->coord.y-=player->speed;
+		player->direction=UP;
+	}
+	if (keyState[ALLEGRO_KEY_DOWN]) {
+		player->coord.y+=player->speed;
+		player->direction=DOWN;
+	}
+	if (keyState[ALLEGRO_KEY_LEFT]) {
+		player->coord.x-=player->speed;
+		player->direction=LEFT;
+	}
+	if (keyState[ALLEGRO_KEY_RIGHT]) {
+		player->coord.x+=player->speed;
+		player->direction=RIGHT;
+	}
+
+    // if Collide, snap to the grid to make it pixel perfect
+    if(isCollision(player, map)){
+		player->coord.y=original.y;
+        // player->coord.y = round((float)original.y / (float)TILE_SIZE) * TILE_SIZE;
+    }
+    
+    if(isCollision(player, map)){
+		player->coord.x=original.x;
+        // player->coord.x = round((float)original.x / (float)TILE_SIZE) * TILE_SIZE;
+    }
+
+	if (player->status==PLAYER_DYING||player->status==PLAYER_DEAD) {
+		player->coord.x=original.x;
+		player->coord.y=original.y;
+	}
+	else if (player->coord.x==original.x&&player->coord.y==original.y) {
+		player->status=PLAYER_IDLE;
+	}
+	else {
+		player->status=PLAYER_WALKING;
+	}
+
+	player->animation_tick++;
 }
 
 void draw_player(Player * player, Point cam){
+	if (player->id==2) {
+		draw_player2(player, cam);
+		return;
+	}
+
     int dy = player->coord.y - cam.y; // destiny y axis
     int dx = player->coord.x - cam.x; // destiny x axis
     
@@ -127,14 +197,48 @@ void draw_player(Player * player, Point cam){
 		if (player->animation_tick>32) player->status=PLAYER_DEAD;
 	}
     
-    /*
-        [TODO Homework] 
-        
-        Draw Animation of Dying, Walking, and Idle
-    */
-
     al_draw_tinted_scaled_bitmap(player->image, al_map_rgb(255, 255, 255),
         offset_x, offset_y, 32, 32, // source image x, y, width, height
+        dx, dy, TILE_SIZE, TILE_SIZE, // destiny x, y, width, height
+        flag // Flip or not
+    );
+
+    
+#ifdef DRAW_HITBOX
+    al_draw_rectangle(
+        dx, dy, dx + TILE_SIZE, dy + TILE_SIZE,
+        al_map_rgb(255, 0, 0), 1
+    );
+#endif
+    
+}
+
+void draw_player2(Player * player, Point cam){
+    int dy = player->coord.y - cam.y; // destiny y axis
+    int dx = player->coord.x - cam.x; // destiny x axis
+    
+    // Change the flag to flip character
+	int flag = player->direction == RIGHT ? 1 : 0;
+
+	int offset_x=0;
+	int offset_y=0;
+
+	if (player->status==PLAYER_IDLE) {
+		offset_x=0;
+		offset_y=0;
+	}
+	if (player->status==PLAYER_WALKING) {
+		offset_x=(player->animation_tick/8)%10*48;
+		offset_y=0;
+	}
+	if (player->status==PLAYER_DYING) {
+		offset_x=(player->animation_tick/8)%4*32;
+		offset_y=64;
+		if (player->animation_tick>32) player->status=PLAYER_DEAD;
+	}
+    
+    al_draw_tinted_scaled_bitmap(player->image, al_map_rgb(255, 255, 255),
+        offset_x, offset_y, 48, 48, // source image x, y, width, height
         dx, dy, TILE_SIZE, TILE_SIZE, // destiny x, y, width, height
         flag // Flip or not
     );

@@ -3,14 +3,14 @@
 
 #include <math.h>
 
-Bullet create_bullet(char* bullet_path, PointFloat coord, float angle, float speed, float damage){
+Bullet create_bullet(char* bullet_path, PointFloat coord, float angle, float speed, float damage, BULLET_TYPE bullet_type){
     Bullet bullet;
     bullet.coord = coord;
     bullet.angle = angle;
     bullet.speed = speed;
     bullet.damage = damage;
+	bullet.type=bullet_type;
     bullet.image = al_load_bitmap(bullet_path);
-
     // For better repositioning
     bullet.coord.x += (float)(TILE_SIZE/2) * cos(bullet.angle);
     bullet.coord.y += (float)(TILE_SIZE/2) * sin(bullet.angle);
@@ -20,22 +20,9 @@ Bullet create_bullet(char* bullet_path, PointFloat coord, float angle, float spe
 
 // Return true if the bullet collides, so it will be deleted from the list
 bool update_bullet(Bullet * bullet, enemyNode * enemyList, Map * map){
-    /*
-        [TODO Hackathon 3-1] 
-        
-        Calculate the correct formula to update the bullet,
-        Parameter: bullet->speed, bullet->angle
-
-    */
 	bullet->coord.x += bullet->speed * cos(bullet->angle);
 	bullet->coord.y += bullet->speed * sin(bullet->angle);
     
-    /*
-        [TODO Hackathon 2-3] 
-        
-        Return true if the bullet collides, so it will deleted from the lists
-
-    */
 	int tile_y = (int)(bullet->coord.x / TILE_SIZE);
 	int tile_x = (int)(bullet->coord.y / TILE_SIZE);
 	if (tile_x<0||tile_x>=map->row||
@@ -45,6 +32,7 @@ bool update_bullet(Bullet * bullet, enemyNode * enemyList, Map * map){
 	}
     
     // Check if the bullet collide with the enemies by simple iterating
+
     enemyNode * cur = enemyList->next;
     while(cur != NULL){
         Point enemyCoord = cur->enemy.coord;
@@ -66,7 +54,7 @@ bool update_bullet(Bullet * bullet, enemyNode * enemyList, Map * map){
 
 void draw_bullet(Bullet * bullet, Point camera){
     float scale = TILE_SIZE / 16;
-    //al_draw_filled_circle(bullet->coord.x - camera.x, bullet->coord.y - camera.y, scale, al_map_rgb(255, 255, 0));
+    // al_draw_filled_circle(bullet->coord.x - camera.x, bullet->coord.y - camera.y, scale, al_map_rgb(255, 255, 0));
     al_draw_bitmap(bullet->image, bullet->coord.x - camera.x - 16, bullet->coord.y - camera.y - 16, 0);
 }
 
@@ -125,6 +113,9 @@ void drawBulletList(BulletNode * dummyhead, Point camera){
 }
 
 void destroyBulletList(BulletNode * dummyhead){
+	BulletNode* del = dummyhead;
+    dummyhead = dummyhead->next;
+    free(del); // No Images
     while(dummyhead != NULL){
         BulletNode * del = dummyhead;
         dummyhead = dummyhead->next;

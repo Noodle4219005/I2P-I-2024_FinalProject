@@ -15,7 +15,6 @@ static Point get_floor_offset_assets(Map * map, int i, int j);
 static Point get_hole_offset_assets(Map * map, int i, int j);
 static const int offset = 16;
 
-
 static bool tile_collision(Point player, Point tile_coord);
 
 Map create_map(char * path, uint8_t type){
@@ -43,6 +42,10 @@ Map create_map(char * path, uint8_t type){
     map.coin_status = (uint8_t **) malloc(map.row * sizeof(uint8_t *));
     for(int i=0; i<map.row; i++){
         map.coin_status[i] = (uint8_t *) malloc(map.col * sizeof(uint8_t));
+    }
+    map.coin_disappearing_animation_tick = (uint8_t **) malloc(map.row * sizeof(uint8_t *));
+    for(int i=0; i<map.row; i++){
+        map.coin_disappearing_animation_tick[i] = (uint8_t *) malloc(map.col * sizeof(uint8_t));
     }
     
     // Map Offset Resource Pack Array
@@ -168,13 +171,15 @@ void draw_map(Map * map, Point cam){
                 case COIN:
 					offset=(map->coin_animation_tick/8)*16;
 					if (map->coin_status[i][j]==DISAPPEARING) {
+						offset=(map->coin_disappearing_animation_tick[i][j]/8)*16;
 						al_draw_scaled_bitmap(map->coin_assets,
 							offset, 16, 16, 16,
 							dx, dy, TILE_SIZE, TILE_SIZE,
 							0);
-						if (map->coin_animation_tick>=63) map->coin_status[i][j]=DISAPPEAR;
+						++map->coin_disappearing_animation_tick[i][j];
+						if (map->coin_disappearing_animation_tick[i][j]>=64) map->coin_status[i][j]=DISAPPEAR;
 					}
-					else if (map->coin_status[i][j]!=DISAPPEAR)
+					else if (map->coin_status[i][j]==APPEAR)
 						al_draw_scaled_bitmap(map->coin_assets,
 							offset, 0, 16, 16,
 							dx, dy, TILE_SIZE, TILE_SIZE,
@@ -234,14 +239,16 @@ void draw_map(Map * map, Point cam){
     }
 }
 
-void update_map(Map * map, Point player_coord, int* total_coins){
+void update_map(Map * map, Point player_coord, int player_id, int* total_coins){
 	for (int i=0; i<map->row; ++i) {
 		for (int j=0; j<map->col; ++j) {
             switch(map->map[i][j]){
                 case COIN:
 					if (tile_collision(player_coord, (Point) {j*TILE_SIZE, i*TILE_SIZE})&&map->coin_status[i][j]==APPEAR) {
 						map->coin_status[i][j]=DISAPPEARING;
+						map->coin_disappearing_animation_tick[i][j]=0;
 						++(*total_coins);
+						al_play_sample(map->coin_audio, SFX_VOLUME, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 					}
                     break;
                 case BUTTON:
@@ -249,7 +256,7 @@ void update_map(Map * map, Point player_coord, int* total_coins){
                     break;
 				case DOOR_CLOSE:
 					if (map->is_button_pressed) map->map[i][j]=DOOR_OPEN;
-					break;;
+					break;
                 default:
                     break;
             }
@@ -257,14 +264,10 @@ void update_map(Map * map, Point player_coord, int* total_coins){
 		}
 	}
 
+	if (player_id==2) return;
 	if (map->is_button_pressed&&map->button_animation_tick<23) map->button_animation_tick++;
 	if (map->is_button_pressed&&map->door_animation_tick<55) map->door_animation_tick++;
 	map->coin_animation_tick=(map->coin_animation_tick+1)%64;
-    /*
-        Hint: To check if it's collide with object in map, you can use tile_collision function
-        e.g. to update the coins if you touch it
-    */
-
 }
 
 void destroy_map(Map * map){

@@ -26,6 +26,9 @@ static bool isCollision(Point enemyCoord, Map* map);
 // Return true if player collide with enemy
 static bool playerCollision(Point enemyCoord, Point playerCoord);
 
+int distance(Point a, Point b) {
+	return abs(a.x-b.x)+abs(a.y-b.y);
+}
 
 void initEnemy(void){
     // For memory efficiency, we load the image once
@@ -48,6 +51,7 @@ Enemy createEnemy(int row, int col, char type){
     enemy.animation_tick = 0;
     enemy.death_animation_tick = 0;
     enemy.status = ALIVE;
+	enemy.last_chasing_distance=INF;
     
     enemy.coord = (Point){
         col * TILE_SIZE,
@@ -74,9 +78,13 @@ Enemy createEnemy(int row, int col, char type){
 }
 
 // Return True if the enemy is dead
-bool updateEnemy(Enemy * enemy, Map * map, Player * player){
+bool updateEnemy(Enemy * enemy, Map * map, Player * player1, Player* player2){
 
-    
+	Player* player=player1;
+
+	if (distance(enemy->coord, player->coord)>distance(enemy->coord, player2->coord))
+		player=player2;
+
     if(enemy->status == DYING){
         enemy->death_animation_tick++;
 		if (enemy->death_animation_tick>=64)
@@ -111,11 +119,6 @@ bool updateEnemy(Enemy * enemy, Map * map, Player * player){
         }
     }
     else{
-        /*
-            [TODO Homework]
-            Replace delta variable with the function below to start enemy movement
-        */
-
 		Point delta = shortestPath(map, enemy->coord, player->coord);
         Point next, prev = enemy->coord;
         
@@ -195,13 +198,6 @@ void terminateEnemy(void) {
 }
 
 void hitEnemy(Enemy * enemy, int damage, float angle){
-
-    /*  
-        [TODO Homework]
-
-        Decrease the enemy health with damage, if the health < 0, then set the status to DYING
-    
-    */
 	enemy->health-=damage;
 	if(enemy->health<=0) enemy->status = DYING;
 
@@ -232,12 +228,12 @@ void insertEnemyList(enemyNode * dummyhead, Enemy _enemy){
     dummyhead->next = tmp;
 }
 
-void updateEnemyList(enemyNode * dummyhead, Map * map, Player * player){
+void updateEnemyList(enemyNode * dummyhead, Map * map, Player * player, Player* player2){
     enemyNode * cur = dummyhead->next;
     enemyNode * prev = dummyhead;
     
     while(cur != NULL){
-        bool shouldDelete = updateEnemy(&cur->enemy, map, player);
+        bool shouldDelete = updateEnemy(&cur->enemy, map, player, player2);
         if(shouldDelete){
             prev->next = cur->next;
             destroyEnemy(&cur->enemy);

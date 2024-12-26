@@ -14,6 +14,7 @@ typedef struct _Bullet{
     float speed;
     float angle;
     float damage;
+	uint8_t type;
     ALLEGRO_BITMAP* image;
 } Bullet;
 
@@ -23,7 +24,13 @@ typedef struct _bulletNode{
     struct _bulletNode * next;
 } BulletNode;
 
-Bullet create_bullet(char* bullet_path, PointFloat coord, float angle, float speed, float damage);
+typedef enum _BULLET_TYPE {
+	RIFLE,
+	SHOOTER,
+	ENEMY
+}BULLET_TYPE;
+
+Bullet create_bullet(char* bullet_path, PointFloat coord, float angle, float speed, float damage, BULLET_TYPE bullet_type);
 
 BulletNode * createBulletList(void);
 void insertBulletList(BulletNode * dummyhead, Bullet bullet);

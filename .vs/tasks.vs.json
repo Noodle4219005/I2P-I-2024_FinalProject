@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-slider",
+      "appliesTo": "Final_Codes/Assets/slider.png",
+      "type": "launch"
+    }
+  ]
+}

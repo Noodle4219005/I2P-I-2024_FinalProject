@@ -38,6 +38,7 @@ typedef enum _COIN_STATUS {
 typedef struct Map_{
     uint8_t ** map; // Map array
 	uint8_t** coin_status;
+	uint8_t** coin_disappearing_animation_tick;
     Point ** offset_assets; // Assets
 
 	int coin_animation_tick;
@@ -73,7 +74,7 @@ typedef struct Map_{
  */
 Map create_map(char * path, uint8_t type); // Create a map based on given file path
 void draw_map(Map * map, Point cam); // Draw the map
-void update_map(Map * map, Point player_coord, int * total_coins); // Update map : you might want add some parameter here
+void update_map(Map* map, Point player_coord, int player_id, int* total_coins);
 void destroy_map(Map * map); // Destroy map
 
 bool isWalkable(BLOCK_TYPE block);
