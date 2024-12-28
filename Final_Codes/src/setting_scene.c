@@ -17,8 +17,8 @@ static void init(void) {
 static void update(void) {
 
     update_button(&backButton);
-	update_slider(&bgm_slider);
-	update_slider(&sfx_slider);
+	if (!sfx_slider.is_activate) update_slider(&bgm_slider);
+	if (!bgm_slider.is_activate) update_slider(&sfx_slider);
 
     if (mouseState.buttons && backButton.hovered == true) {
         change_scene(create_menu_scene());
