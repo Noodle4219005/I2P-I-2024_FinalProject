@@ -3,28 +3,36 @@
   "WorkspaceRootPath": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\game_scene.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\game_scene.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\bullet.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\bullet.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\include\\map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\enemy.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\enemy.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\map.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\map.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\setting_scene.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\setting_scene.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\include\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\UI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\include\\UI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\enemy.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\enemy.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\UI.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Final_Codes\\src\\UI.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,80 +58,105 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "bullet.c",
-              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\bullet.c",
-              "RelativeDocumentMoniker": "Final_Codes\\src\\bullet.c",
-              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\bullet.c",
-              "RelativeToolTip": "Final_Codes\\src\\bullet.c",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAowFIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-28T05:59:54.049Z",
+              "DocumentIndex": 2,
+              "Title": "map.h",
+              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\map.h",
+              "RelativeDocumentMoniker": "Final_Codes\\include\\map.h",
+              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\map.h",
+              "RelativeToolTip": "Final_Codes\\include\\map.h",
+              "ViewState": "AgIAABsAAAAAAAAAAAAmwFYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-28T10:04:57.712Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "player.h",
-              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\player.h",
-              "RelativeDocumentMoniker": "Final_Codes\\include\\player.h",
-              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\player.h",
-              "RelativeToolTip": "Final_Codes\\include\\player.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-28T06:12:08.021Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "player.c",
-              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\player.c",
-              "RelativeDocumentMoniker": "Final_Codes\\src\\player.c",
-              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\player.c",
-              "RelativeToolTip": "Final_Codes\\src\\player.c",
-              "ViewState": "AgIAAM0AAAAAAAAAAAAAAAMBAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-28T05:03:24.964Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "game_scene.c",
-              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\game_scene.c",
-              "RelativeDocumentMoniker": "Final_Codes\\src\\game_scene.c",
-              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\game_scene.c",
-              "RelativeToolTip": "Final_Codes\\src\\game_scene.c",
-              "ViewState": "AgIAAAIAAAAAAAAAAIA8wAsAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-28T05:57:09.454Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "enemy.c",
-              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\enemy.c",
-              "RelativeDocumentMoniker": "Final_Codes\\src\\enemy.c",
-              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\enemy.c",
-              "RelativeToolTip": "Final_Codes\\src\\enemy.c",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAFoAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-26T07:37:13.696Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "map.c",
               "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\map.c",
               "RelativeDocumentMoniker": "Final_Codes\\src\\map.c",
               "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\map.c",
               "RelativeToolTip": "Final_Codes\\src\\map.c",
-              "ViewState": "AgIAAAMBAAAAAAAAAAAYwOwAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAL4AAAAAAAAAAAASwPEAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-12-26T07:58:00.887Z",
+              "WhenOpened": "2024-12-28T09:17:47.567Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "enemy.c",
+              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\enemy.c",
+              "RelativeDocumentMoniker": "Final_Codes\\src\\enemy.c",
+              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\enemy.c",
+              "RelativeToolTip": "Final_Codes\\src\\enemy.c",
+              "ViewState": "AgIAAI8BAAAAAAAAAAASwMUBAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-28T09:08:14.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "game_scene.c",
+              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\game_scene.c",
+              "RelativeDocumentMoniker": "Final_Codes\\src\\game_scene.c",
+              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\game_scene.c",
+              "RelativeToolTip": "Final_Codes\\src\\game_scene.c",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAAAE0AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-28T08:58:46.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "player.c",
+              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\player.c",
+              "RelativeDocumentMoniker": "Final_Codes\\src\\player.c",
+              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\player.c",
+              "RelativeToolTip": "Final_Codes\\src\\player.c",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAiwNEAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-28T08:51:27.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UI.h",
+              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\UI.h",
+              "RelativeDocumentMoniker": "Final_Codes\\include\\UI.h",
+              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\include\\UI.h",
+              "RelativeToolTip": "Final_Codes\\include\\UI.h",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAABEAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-28T08:50:24.376Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UI.c",
+              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\UI.c",
+              "RelativeDocumentMoniker": "Final_Codes\\src\\UI.c",
+              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\UI.c",
+              "RelativeToolTip": "Final_Codes\\src\\UI.c",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAGwAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-28T08:50:20.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "setting_scene.c",
+              "DocumentMoniker": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\setting_scene.c",
+              "RelativeDocumentMoniker": "Final_Codes\\src\\setting_scene.c",
+              "ToolTip": "E:\\06_Code\\Public-Code\\I2P-I-2024_FinalProject\\Final_Codes\\src\\setting_scene.c",
+              "RelativeToolTip": "Final_Codes\\src\\setting_scene.c",
+              "ViewState": "AgIAADwAAAAAAAAAAAAiwD0AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-12-28T08:48:45.71Z",
               "EditorCaption": ""
             }
           ]

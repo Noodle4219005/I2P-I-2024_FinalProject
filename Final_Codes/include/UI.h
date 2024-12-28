@@ -18,6 +18,9 @@ typedef struct _Slider {
 	int bar_x, bar_y, bar_w, bar_h;
 	int note_x, note_y;
 	int note_size;
+	enum _Sound_Type {
+		BGM, SFX
+	}Sound_Type;
 
 	ALLEGRO_BITMAP* bar_img;
 	ALLEGRO_BITMAP* note_img;
@@ -32,7 +35,7 @@ void draw_button(Button button);
 void update_button(Button* button);
 void destroy_button(Button* button);
 
-Slider slider_create(int x, int y, int w, int h, float note_propotion, int note_size, const char* bar_iamge_path, const char* note_image_path);
+Slider slider_create(int x, int y, int w, int h, float note_propotion, int note_size, const char* bar_iamge_path, const char* note_image_path, int);
 void draw_slider(Slider slider);
 void update_slider(Slider* slider);
 void destroy_slider(Slider* slider);

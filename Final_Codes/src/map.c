@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "map.h"
+#include "player.h"
 
 /*
     [OFFSET CALCULATOR FUNCTIONS]
@@ -96,6 +97,14 @@ Map create_map(char * path, uint8_t type){
 				case 'B':
 					map.map[i][j]=BUTTON;
                     break;
+
+				case 'I':
+					map.map[i][j]=INVINCIBLE;
+					break;
+
+				case 'G':
+					map.map[i][j]=SPEEDUP;
+					break;
 
                 case '_': // Nothing
                     map.map[i][j] = HOLE;
@@ -225,6 +234,12 @@ void draw_map(Map * map, Point cam){
 						is_first_door=true;
 					}
 					break;
+				case SPEEDUP:
+					al_draw_filled_circle(dx+TILE_SIZE/2, dy+TILE_SIZE/2, 15, al_map_rgb(0, 255, 255));
+					break;
+				case INVINCIBLE:
+					al_draw_filled_circle(dx+TILE_SIZE/2, dy+TILE_SIZE/2, 15, al_map_rgb(255, 255, 0));
+					break;
 
                 default:
                     break;
@@ -239,7 +254,8 @@ void draw_map(Map * map, Point cam){
     }
 }
 
-void update_map(Map * map, Point player_coord, int player_id, int* total_coins){
+uint8_t update_map(Map * map, Point player_coord, int player_id, int* total_coins){
+	uint8_t change=CHANGE_NOTHING;
 	for (int i=0; i<map->row; ++i) {
 		for (int j=0; j<map->col; ++j) {
             switch(map->map[i][j]){
@@ -257,34 +273,52 @@ void update_map(Map * map, Point player_coord, int player_id, int* total_coins){
 				case DOOR_CLOSE:
 					if (map->is_button_pressed) map->map[i][j]=DOOR_OPEN;
 					break;
+				case INVINCIBLE:
+					if (tile_collision(player_coord, (Point) { j* TILE_SIZE, i* TILE_SIZE })) {
+						map->map[i][j]=FLOOR;
+						change=TO_INVINCIBLE;
+					}
+					break;
+				case SPEEDUP:
+					if (tile_collision(player_coord, (Point) { j* TILE_SIZE, i* TILE_SIZE })) {
+						map->map[i][j]=FLOOR;
+						change=TO_SPEED;
+					}
+					break;
                 default:
                     break;
             }
-
 		}
 	}
 
-	if (player_id==2) return;
+	// if (player_id==2) return;
 	if (map->is_button_pressed&&map->button_animation_tick<23) map->button_animation_tick++;
 	if (map->is_button_pressed&&map->door_animation_tick<55) map->door_animation_tick++;
 	map->coin_animation_tick=(map->coin_animation_tick+1)%64;
+	return change;
 }
 
 void destroy_map(Map * map){
     for(int i = 0; i < map->row; i++){
         free(map->map[i]);
+		free(map->coin_status[i]);
+		free(map->coin_disappearing_animation_tick[i]);
         free(map->offset_assets[i]);
     }
     free(map->map);
+	free(map->coin_status);
+	free(map->coin_disappearing_animation_tick);
     free(map->offset_assets);
 
     al_destroy_bitmap(map->assets);
     al_destroy_bitmap(map->coin_assets);
+    al_destroy_bitmap(map->button_assets);
+    al_destroy_bitmap(map->door_assets);
     al_destroy_sample(map->coin_audio);
 }
 
 bool isWalkable(BLOCK_TYPE block){
-    if(block == FLOOR ||  block == COIN || block==DOOR_OPEN || block==BUTTON) return true;
+    if(block == FLOOR ||  block == COIN || block==DOOR_OPEN || block==BUTTON || block==INVINCIBLE || block==SPEEDUP) return true;
     return false;
 }
 
@@ -490,6 +524,8 @@ static void get_map_offset(Map * map){
 				case BUTTON:
 				case DOOR_CLOSE:
 				case DOOR_OPEN:
+				case INVINCIBLE:
+				case SPEEDUP:
                     map->offset_assets[i][j] = get_floor_offset_assets(map, i, j);
                     break;
 

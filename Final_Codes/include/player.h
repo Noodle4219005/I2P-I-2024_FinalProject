@@ -30,6 +30,10 @@ typedef struct _Player{
     float knockback_angle;
     uint8_t knockback_CD;
 
+	int speed_effect_time;
+	int invincible_time;
+	int invincible_color;
+
     PLAYER_STATUS status;
 } Player;
 

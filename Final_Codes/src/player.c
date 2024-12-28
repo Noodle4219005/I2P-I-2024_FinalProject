@@ -24,6 +24,8 @@ Player create_player(char * path, int row, int col, int id, int health, int spee
 	player.fireball_angle=0;
 	player.fireball_damage=2;
 	player.fireball_count=4;
+	player.invincible_time=0;
+	player.speed_effect_time=0;
 
     player.image = al_load_bitmap(path);
     if(!player.image){
@@ -38,8 +40,14 @@ Player create_player(char * path, int row, int col, int id, int health, int spee
 }
 
 void update_player(Player * player, Map* map, Point cam){
+	if (player->id==1) printf("\r speed: %d", player->speed_effect_time);
 	// if (player->status==PLAYER_DEAD) printf("player id: %d is dead\n", player->id);
     Point original = player->coord;
+	int original_speed=player->speed;
+	if (player->speed_effect_time>0) player->speed*=2;
+	else player->speed_effect_time=0;
+	if (player->invincible_time>0);
+	else player->invincible_time=0;
     
     // Knockback effect
     if(player->knockback_CD > 0){
@@ -127,6 +135,9 @@ void update_player(Player * player, Map* map, Point cam){
 	}
 
 	player->animation_tick++;
+	player->speed=original_speed;
+	--player->speed_effect_time;
+	--player->invincible_time;
 }
 
 
@@ -138,6 +149,10 @@ void draw_player(Player * player, Point cam){
 
     int dy = player->coord.y - cam.y; // destiny y axis
     int dx = player->coord.x - cam.x; // destiny x axis
+
+	ALLEGRO_COLOR tint=al_map_rgb(255, 255, 255);
+	if (player->speed_effect_time>0) tint=al_map_rgb(0, 0, 255);
+	if (player->invincible_time>0) tint=al_map_rgb(255, 255, 0);
     
     // Change the flag to flip character
 	int flag = player->direction == RIGHT ? 1 : 0;
@@ -153,17 +168,13 @@ void draw_player(Player * player, Point cam){
 		offset_x=(player->animation_tick/8)%4*32;
 		offset_y=32;
 	}
-	if (player->status==PLAYER_DYING) {
+	if (player->status==PLAYER_DYING||player->status==PLAYER_DEAD) {
 		offset_x=(player->animation_tick/8)%4*32;
 		offset_y=64;
 		if (player->animation_tick>32) player->status=PLAYER_DEAD;
 	}
-	if (player->status==PLAYER_DEAD) {
-		offset_x=4*32;
-		offset_y=64;
-	}
-    
-    al_draw_tinted_scaled_bitmap(player->image, al_map_rgb(255, 255, 255),
+
+    al_draw_tinted_scaled_bitmap(player->image, tint,
         offset_x, offset_y, 32, 32, // source image x, y, width, height
         dx, dy, TILE_SIZE, TILE_SIZE, // destiny x, y, width, height
         flag // Flip or not
@@ -191,6 +202,8 @@ void draw_player2(Player * player, Point cam){
 	int offset_y=0;
 	
 	ALLEGRO_COLOR tint=al_map_rgb(255, 255, 255);
+	if (player->speed_effect_time>0) tint=al_map_rgb(0, 0, 255);
+	if (player->invincible_time>0) tint=al_map_rgb(255, 255, 0);
 
 	if (player->status==PLAYER_IDLE) {
 		offset_x=0;
@@ -270,6 +283,7 @@ static bool isCollision(Player* player, Map* map, Point cam){
 }
 
 void hitPlayer(Player * player, Point enemy_coord, int damage){
+	if (player->invincible_time>0) return;
     if(player->knockback_CD == 0){
         float dY = player->coord.y - enemy_coord.y;
         float dX = player->coord.x - enemy_coord.x;

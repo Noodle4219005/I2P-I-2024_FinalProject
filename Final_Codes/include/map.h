@@ -25,6 +25,8 @@ typedef enum _BLOCK_TYPE{
     HOLE,
     COIN,
 	BUTTON,
+	INVINCIBLE,
+	SPEEDUP,
     NOTHING
 } BLOCK_TYPE;
 
@@ -68,13 +70,19 @@ typedef struct Map_{
 
 } Map;
 
+enum _CHANGE_STATUS {
+	CHANGE_NOTHING,
+	TO_SPEED,
+	TO_INVINCIBLE
+} CHANGE_STATUS;
+
 /*
     MAP FUNCTION
     Feel free to add more if you have some idea or interaction with the map
  */
 Map create_map(char * path, uint8_t type); // Create a map based on given file path
 void draw_map(Map * map, Point cam); // Draw the map
-void update_map(Map* map, Point player_coord, int player_id, int* total_coins);
+uint8_t update_map(Map* map, Point player_coord, int player_id, int* total_coins);
 void destroy_map(Map * map); // Destroy map
 
 bool isWalkable(BLOCK_TYPE block);

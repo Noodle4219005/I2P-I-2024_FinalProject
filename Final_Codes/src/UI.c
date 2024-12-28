@@ -32,7 +32,7 @@ Button button_create(int x, int y, int w, int h, const char* default_image_path,
 	return button;
 }
 
-Slider slider_create(int x, int y, int w, int h, float note_proportion, int note_size, const char* bar_iamge_path, const char* note_image_path) {
+Slider slider_create(int x, int y, int w, int h, float note_proportion, int note_size, const char* bar_iamge_path, const char* note_image_path, int sound_type) {
 
 	Slider slider;
 	memset(&slider, 0, sizeof(Slider));
@@ -57,6 +57,8 @@ Slider slider_create(int x, int y, int w, int h, float note_proportion, int note
 
 	slider.is_activate=false;
 	slider.hovered = false;
+
+	slider.Sound_Type=sound_type;
 
 	return slider;
 
@@ -109,11 +111,10 @@ void update_slider(Slider* slider) {
 	else slider->is_activate=false;
 
 	if (slider->is_activate) {
-		if (mouseState.x>=slider->bar_x&&mouseState.x<=slider->bar_x+slider->bar_w) 
-			slider->note_x=mouseState.x;
+		slider->note_x=max(slider->bar_x, min(slider->bar_x+slider->bar_w, mouseState.x));
 	}
-	SFX_VOLUME=BGM_VOLUME=1.f*(slider->note_x-slider->bar_x)/slider->bar_w;
-	printf("BGM: %f\n", BGM_VOLUME);
+	if (slider->Sound_Type==BGM) BGM_VOLUME=1.f*(slider->note_x-slider->bar_x)/slider->bar_w;
+	if (slider->Sound_Type==SFX) SFX_VOLUME=1.f*(slider->note_x-slider->bar_x)/slider->bar_w;
 }
 
 void destroy_button(Button* button) {

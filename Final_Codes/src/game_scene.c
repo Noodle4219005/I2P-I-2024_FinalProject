@@ -28,8 +28,8 @@ static void init(void){
     
     map = create_map("Assets/map0.txt", 0);
 
-    player = create_player("Assets/panda2.png", map.Spawn.x, map.Spawn.y, 1, 200, 4); 
-	player2=create_player("Assets/player.png", map.Spawn.x, map.Spawn.y, 2, 50, 7);
+    player = create_player("Assets/panda2.png", map.Spawn.x, map.Spawn.y, 1, 1000, 4); 
+	player2=create_player("Assets/player.png", map.Spawn.x, map.Spawn.y, 2, 1000, 7);
 
     enemyList = createEnemyList();
     bulletList = createBulletList();
@@ -73,13 +73,20 @@ static void update(void){
 	// Camera.x=player.coord.x-SCREEN_W/2;
 	// Camera.y=player.coord.y-SCREEN_H/2;
 
-    update_player(&player, &map, Camera);
-	update_player(&player2, &map, Camera);
     updateEnemyList(enemyList, &map, &player, &player2);
     update_weapon(&weapon, bulletList, player.coord, Camera);
     updateBulletList(bulletList, enemyList, &map, player2);
-    update_map(&map, player.coord, player.id, &coins_obtained);
-    update_map(&map, player2.coord, player2.id, &coins_obtained);
+
+	int change;
+	change=update_map(&map, player.coord, player.id, &coins_obtained);
+	if (change==TO_SPEED) player.speed_effect_time=120;
+	if (change==TO_INVINCIBLE) player.invincible_time=120;
+    change=update_map(&map, player2.coord, player2.id, &coins_obtained);
+	if (change==TO_SPEED) player2.speed_effect_time=120;
+	if (change==TO_INVINCIBLE) player2.invincible_time=120;
+
+    update_player(&player, &map, Camera);
+	update_player(&player2, &map, Camera);
 
 	if (previous_wheel_state!=mouseState.z) {
 		weapon=weapon_list[(mouseState.z+INF)%INF%2];
