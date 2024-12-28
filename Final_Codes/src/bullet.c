@@ -33,22 +33,18 @@ bool update_bullet(Bullet * bullet, enemyNode * enemyList, Map * map){
     
     // Check if the bullet collide with the enemies by simple iterating
 
-    enemyNode * cur = enemyList->next;
-    while(cur != NULL){
-        Point enemyCoord = cur->enemy.coord;
-
-		for (; enemyList!=NULL; enemyList=enemyList->next) {
-			int enemy_x=enemyList->enemy.coord.x;
-			int enemy_y=enemyList->enemy.coord.y;
-			if (enemy_x<=bullet->coord.x&&bullet->coord.x<=enemy_x+TILE_SIZE&&
-				enemy_y<=bullet->coord.y&&bullet->coord.y<=enemy_y+TILE_SIZE) {
+	for (; enemyList!=NULL; enemyList=enemyList->next) {
+		int enemy_x=enemyList->enemy.coord.x;
+		int enemy_y=enemyList->enemy.coord.y;
+		if (enemy_x<=bullet->coord.x&&bullet->coord.x<=enemy_x+TILE_SIZE&&
+			enemy_y<=bullet->coord.y&&bullet->coord.y<=enemy_y+TILE_SIZE) {
+			if (enemyList->enemy.status==ALIVE) {
 				hitEnemy(&enemyList->enemy, bullet->damage, bullet->angle);
 				return true;
 			}
 		}
+	}
 
-        cur = cur->next;
-    }
     return false;
 }
 
@@ -86,7 +82,7 @@ void insertBulletList(BulletNode * dummyhead, Bullet bullet){
     dummyhead->next = tmp;
 }
 
-void updateBulletList(BulletNode * dummyhead, enemyNode * enemyList, Map * map){
+void updateBulletList(BulletNode * dummyhead, enemyNode * enemyList, Map * map, Player p2){
     BulletNode * cur = dummyhead->next;
     BulletNode * prev = dummyhead;
     
@@ -101,6 +97,22 @@ void updateBulletList(BulletNode * dummyhead, enemyNode * enemyList, Map * map){
         prev = cur;
         cur = cur->next;
     }
+
+	enemyNode* buf=enemyList;
+	if (p2.status==PLAYER_DEAD||p2.status==PLAYER_DYING) return;
+	for (int i=0; i<p2.fireball_count; ++i) {
+		int fireball_x=p2.coord.x+TILE_SIZE/2+cos(p2.fireball_angle/360.f*6.28+6.28/p2.fireball_count*i)*p2.fireball_range;
+		int fireball_y=p2.coord.y+TILE_SIZE/2+sin(p2.fireball_angle/360.f*6.28+6.28/p2.fireball_count*i)*p2.fireball_range;
+		for (enemyList=buf; enemyList!=NULL; enemyList=enemyList->next) {
+			int enemy_x=enemyList->enemy.coord.x;
+			int enemy_y=enemyList->enemy.coord.y;
+			if (enemy_x<=fireball_x&&fireball_x<=enemy_x+TILE_SIZE&&
+				enemy_y<=fireball_y&&fireball_y<=enemy_y+TILE_SIZE) {
+				if (enemyList->enemy.status==ALIVE)
+					hitEnemy(&enemyList->enemy, p2.fireball_damage, p2.fireball_angle/360.f*6.28);
+			}
+		}
+	}
 }
 
 void drawBulletList(BulletNode * dummyhead, Point camera){

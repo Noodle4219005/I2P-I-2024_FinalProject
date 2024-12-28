@@ -113,4 +113,7 @@ void game_log(const char * msg, ...);
 // Game Error Message: To Print something and then abort the game
 void game_abort(const char * msg, ...);
 
+#define max(a, b) ((a>b)? (a): (b))
+#define min(a, b) ((a<b)? (a): (b))
+
 #endif

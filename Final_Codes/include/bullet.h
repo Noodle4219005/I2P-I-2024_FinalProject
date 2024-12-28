@@ -34,7 +34,7 @@ Bullet create_bullet(char* bullet_path, PointFloat coord, float angle, float spe
 
 BulletNode * createBulletList(void);
 void insertBulletList(BulletNode * dummyhead, Bullet bullet);
-void updateBulletList(BulletNode * dummyhead, enemyNode * enemyList, Map * map);
+void updateBulletList(BulletNode * dummyhead, enemyNode * enemyList, Map * map, Player p2);
 void drawBulletList(BulletNode * dummyhead, Point camera);
 void destroyBulletList(BulletNode * dummyhead);
 

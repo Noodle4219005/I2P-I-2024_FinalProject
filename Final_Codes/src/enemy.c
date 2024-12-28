@@ -84,6 +84,8 @@ bool updateEnemy(Enemy * enemy, Map * map, Player * player1, Player* player2){
 
 	if (distance(enemy->coord, player->coord)>distance(enemy->coord, player2->coord))
 		player=player2;
+	if (player1->status==PLAYER_DYING||player1->status==PLAYER_DEAD) player=player2;
+	if (player2->status==PLAYER_DYING||player2->status==PLAYER_DEAD) player=player1;
 
     if(enemy->status == DYING){
         enemy->death_animation_tick++;

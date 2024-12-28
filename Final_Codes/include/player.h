@@ -21,16 +21,20 @@ typedef struct _Player{
     
     ALLEGRO_BITMAP* image;
     uint8_t animation_tick; // For animation
+    ALLEGRO_BITMAP* fireball; // for the second player
     
+	int fireball_angle; // in degree
+	int fireball_range;
+	int fireball_damage;
+	int fireball_count;
     float knockback_angle;
     uint8_t knockback_CD;
 
     PLAYER_STATUS status;
 } Player;
 
-Player create_player(char* path, int row, int col, int id);
-void update_player(Player * player, Map * map);
-void update_player2(Player* player, Map* map);
+Player create_player(char* path, int row, int col, int id, int health, int speed);
+void update_player(Player * player, Map * map, Point cam);
 void draw_player(Player * player, Point cam);
 void draw_player2(Player* player, Point cam);
 void delete_player(Player * player);
